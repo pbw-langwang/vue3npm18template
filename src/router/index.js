@@ -19,7 +19,7 @@ Object.entries(pageModules)
       return -1
     }
   })
-  // 自己设置index判断哪个子路由是重定向的
+  // 自己在page.js里面设置index判断哪个子路由是重定向的，最小的就是重定向的
   .sort((a, b) => {
     if (a[1].index && b[1].index) {
       if (a[1].index > b[1].index) {
@@ -70,7 +70,7 @@ Object.entries(pageModules)
 routes.push(
   {
     path: '/',
-    redirect: '/home'
+    redirect: '/login'
   },
   {
     path: '/404',
@@ -93,7 +93,7 @@ let _startTime = Date.now()
 localStorage.setItem('lastPageTime', _startTime)
 let _currentTime
 
-router.beforeEach((to, from) => {
+router.beforeEach((to, from, next) => {
   console.log(to, from)
   if (to) {
     // 第一步：页面跳转后记录一下当前的时间 currentTime
